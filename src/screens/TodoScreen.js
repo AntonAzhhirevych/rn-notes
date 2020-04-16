@@ -16,6 +16,8 @@ import { AppButton } from '../ui/AppButton';
 const TodoScreen = ({ todo, goBack, onRemove, onSave }) => {
   const [modal, setModal] = useState(false);
 
+  console.log('todo', todo);
+
   const saveHandler = (title) => {
     onSave(todo.id, title);
     setModal(false);

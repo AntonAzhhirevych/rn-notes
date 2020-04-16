@@ -20,6 +20,13 @@ const EditModal = ({ visible, onCancel, value, onSave }) => {
     }
   };
 
+  // при нажатии отмена обновляєм стейт преведущим значением
+
+  const cancelHandler = () => {
+    setTitle(value);
+    onCancel();
+  };
+
   return (
     <Modal visible={visible} animationType="slide" transparent={false}>
       <View style={styles.wrap}>
@@ -30,7 +37,7 @@ const EditModal = ({ visible, onCancel, value, onSave }) => {
           placeholder="Enter edit title..."
         />
         <View style={styles.buttons}>
-          <AppButton title="cancel" onPress={onCancel} color="tomato">
+          <AppButton title="cancel" onPress={cancelHandler} color="tomato">
             <MaterialIcons name="cancel" size={20} />
           </AppButton>
           <AppButton title="save" onPress={saveHandler} color="skyblue">

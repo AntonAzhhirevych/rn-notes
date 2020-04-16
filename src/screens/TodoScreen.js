@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 
@@ -6,6 +6,8 @@ import AppCard from '../ui/AppCard';
 import EditModal from '../components/EditModal';
 import { AppTextBold } from '../ui/AppTextBold';
 import { AppButton } from '../ui/AppButton';
+import { TodoContext } from '../context/todo/todoContext';
+import { ScreenContext } from '../context/screen/screenContext';
 
 //width: Dimensions.get('window').width / 3
 
@@ -13,13 +15,15 @@ import { AppButton } from '../ui/AppButton';
 // --.get нужен для получения размера(window , screen) возвращает обьект
 // --.width возвращает width который мы можем использовать (/ 3)
 
-const TodoScreen = ({ todo, goBack, onRemove, onSave }) => {
+const TodoScreen = () => {
   const [modal, setModal] = useState(false);
+  const { todos, editTodo, removeTodo } = useContext(TodoContext);
+  const { todoId, changeScreen } = useContext(ScreenContext);
 
-  console.log('todo', todo);
+  const todo = todos.find((todo) => todo.id === todoId);
 
   const saveHandler = (title) => {
-    onSave(todo.id, title);
+    editTodo(todo.id, title);
     setModal(false);
   };
 
@@ -44,12 +48,12 @@ const TodoScreen = ({ todo, goBack, onRemove, onSave }) => {
       </AppCard>
       <View style={styles.buttons}>
         <View style={styles.button}>
-          <AppButton onPress={goBack}>
+          <AppButton onPress={() => changeScreen(null)}>
             <AntDesign name="back" size={20} />
           </AppButton>
         </View>
         <View style={styles.button}>
-          <AppButton color="skyblue" onPress={() => onRemove(todo.id)}>
+          <AppButton color="skyblue" onPress={() => removeTodo(todo.id)}>
             <AntDesign name="delete" size={20} />
           </AppButton>
         </View>

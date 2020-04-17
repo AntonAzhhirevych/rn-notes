@@ -11,8 +11,8 @@ export const todoReducer = (state, { type, payload }) => {
         todos: [
           ...state.todos,
           {
-            id: Date.now().toString(),
-            title: payload,
+            id: payload.id,
+            title: payload.title,
           },
         ],
       };

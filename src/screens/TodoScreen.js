@@ -22,8 +22,8 @@ const TodoScreen = () => {
 
   const todo = todos.find((todo) => todo.id === todoId);
 
-  const saveHandler = (title) => {
-    editTodo(todo.id, title);
+  const saveHandler = async (title) => {
+    await editTodo(todo.id, title);
     setModal(false);
   };
 
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 20,
-    // padding: 10,
   },
   textContainer: {
     width: '70%',
